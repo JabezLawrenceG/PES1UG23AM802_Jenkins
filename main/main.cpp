@@ -1,17 +1,13 @@
 #include <iostream>
 using namespace std;
 
-// Function to demonstrate a simple calculation
-int add(int a, int b) {
-    return a + b;
-}
-
 int main() {
-    int num1 = 5;
-    int num2 = 10;
+    cout << "Hello, Jenkins!" << endl;
 
-    cout << "Welcome to Jenkins CI/CD Pipeline Demo!" << endl;
-    cout << "The sum of " << num1 << " and " << num2 << " is: " << add(num1, num2) << endl;
+    // Sample functionality for build and test
+    int a = 5, b = 10;
+    cout << "Sum of " << a << " and " << b << " is " << (a + b) << endl;
 
+    // Return success status for Jenkins pipeline
     return 0;
 }
