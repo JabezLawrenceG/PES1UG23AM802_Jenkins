@@ -1,13 +1,14 @@
 FROM jenkins/jenkins:lts
-#FROM ubuntu:20.04
-# if we want to install via apt
+
+# Switch to root to install dependencies
 USER root
-RUN apt-get update && apt-get install -y make && apt-get install -y g++ --fix-missing
-# drop back to the regular jenkins user - good practice
+
+# Install required dependencies
+RUN apt-get update && \
+    apt-get install -y make g++ nodejs npm --fix-missing
+
+# Optional: Symlink `node` if it's missing
+RUN ln -s /usr/bin/nodejs /usr/bin/node
+
+# Switch back to Jenkins user (best practice)
 USER jenkins
-
-
-
-
-
-
