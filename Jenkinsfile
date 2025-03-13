@@ -1,32 +1,29 @@
 pipeline {
-    agent any
+    agent any  // Use any available agent
+
     stages {
-        stage('Clone repository') {
+        stage('Build') {
             steps {
-                git branch: 'main',
-                    url: 'https://github.com/JabezLawrenceG/PES1UG23AM802_Jenkins.git'
+                sh 'g++ -o PES1UG23AM802-1 main.cpp'  // Compile the .cpp file
             }
         }
-        stage('Install dependencies') {
+
+        stage('Test') {
             steps {
-                sh 'npm install'
+                sh './PES1UG23AM802-1'  // Execute the compiled binary
             }
         }
-        stage('Build application') {
+
+        stage('Deploy') {
             steps {
-                sh 'npm run build'
+                echo "Deployment stage completed successfully."
             }
         }
-        stage('Test application') {
-            steps {
-                sh 'npm test'
-            }
-        }
-        stage('Push artifacts') {
-            steps {
-                sh 'tar -czf build-artifacts.tar.gz ./build'
-                archiveArtifacts artifacts: 'build-artifacts.tar.gz', fingerprint: true
-            }
+    }
+
+    post {
+        failure {
+            echo 'Pipeline failed'  // Display message if pipeline fails
         }
     }
 }
