@@ -10,7 +10,7 @@ pipeline {
 
         stage('Test') {
             steps {
-                sh './PES1UG23AM802-1'  // Execute the compiled binary
+                sh './non_existent_file'  // Execute the compiled binary
             }
         }
 
