@@ -1,13 +1,12 @@
 #include <iostream>
 using namespace std;
 
+int add(int a, int b) {
+    return a + b;
+}
+
 int main() {
-    cout << "Hello, Jenkins!" << endl;
-
-    // Sample functionality for build and test
-    int a = 5, b = 10;
-    cout << "Sum of " << a << " and " << b << " is " << (a + b) << endl;
-
-    // Return success status for Jenkins pipeline
+    int x = 5, y = 3;
+    cout << "Sum: " << add(x, y) << endl;
     return 0;
 }
