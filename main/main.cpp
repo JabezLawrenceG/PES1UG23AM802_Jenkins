@@ -3,11 +3,12 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'g++ main.cpp -o main.out'  // Correct file name
+                sh 'g++ main.cpp -o main.out' // Correct file name
             }
         }
         stage('Test') {
             steps {
+                sh 'chmod +x main.out'
                 sh './main.out'
             }
         }
@@ -18,9 +19,11 @@ pipeline {
         }
     }
     post {
+        success {
+            echo 'Pipeline Successful!'
+        }
         failure {
-            echo ' Pipeline Failed'
+            echo 'Pipeline Failed'
         }
     }
 }
-
