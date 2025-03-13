@@ -1,35 +1,32 @@
 pipeline {
-    agent {
-        docker {
-            image 'gcc:latest'  // Using GCC for compiling C++ code
-        }
-    }
+    agent any
     stages {
-        stage('Checkout') {
+        stage('Clone repository') {
             steps {
-                git branch: 'main', url: 'https://github.com/JabezLawrenceG/PES1UG23AM802_Jenkins.git'
+                git branch: 'main',
+                    url: 'https://github.com/<user>/<repo>.git'
             }
         }
-        stage('Build') {
+        stage('Install dependencies') {
             steps {
-                sh 'g++ main.cpp -o main'  // Compiling main.cpp
+                sh 'npm install'
             }
         }
-        stage('Test') {
+        stage('Build application') {
             steps {
-                sh './main'  // Running the compiled executable
+                sh 'npm run build'
             }
         }
-        stage('Deploy') {
+        stage('Test application') {
             steps {
-                echo 'Deploying application...'
+                sh 'npm test'
             }
         }
-    }
-    post {
-        failure {
-            echo 'Pipeline Failed!'
-            sh 'echo PIPELINE FAILED'
+        stage('Push artifacts') {
+            steps {
+                sh 'tar -czf build-artifacts.tar.gz ./build'
+                archiveArtifacts artifacts: 'build-artifacts.tar.gz', fingerprint: true
+            }
         }
     }
 }
